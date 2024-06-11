@@ -35,8 +35,12 @@ def direct_request(url):
     :param url:
     :return: beautiful soup object
     """
-    html_content = requests.get(url).content
-    return BeautifulSoup(html_content, 'html.parser')
+    try:
+        html_content = requests.get(url).content
+        return BeautifulSoup(html_content, 'html.parser')
+    except requests.exceptions.RequestException as e:
+        print('Error:', e)
+        return None
 
 
 def scrap_blog_content(url):
@@ -47,6 +51,7 @@ def scrap_blog_content(url):
     """
     try:
         soup = proxy_request(url)
+        # soup = direct_request(url)
         if soup:
             title = soup.find(class_='article-title').text
             text_selection = soup.find(class_='article-text')

@@ -3,6 +3,7 @@ from bs4 import BeautifulSoup
 import helper
 import pandas as pd
 import tqdm
+import time
 
 BASE_URL = 'https://www.premiumbeautynews.com   /'
 base_df = pd.read_csv('blog_urls.csv')
@@ -54,4 +55,5 @@ def scrap_blog_content(category):
 # action
 # ret_result_dict = scrap_blog_url_by_category(categories)
 # create_caturl_dataframe(ret_result_dict)
+# scrap_blog_content('companies-industry')
 

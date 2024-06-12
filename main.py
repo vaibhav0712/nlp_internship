@@ -55,5 +55,5 @@ def scrap_blog_content(category):
 # action
 # ret_result_dict = scrap_blog_url_by_category(categories)
 # create_caturl_dataframe(ret_result_dict)
-# scrap_blog_content('companies-industry')
+scrap_blog_content('industry-buzz')
 

@@ -1,7 +1,7 @@
 import requests
 from bs4 import BeautifulSoup
-BASE_URL = 'https://www.premiumbeautynews.com/'
-username, password = open('auth.txt', 'r').read().split('\n')
+
+BASE_URL = "https://www.premiumbeautynews.com/"
 
 
 def proxy_request(url):
@@ -11,21 +11,18 @@ def proxy_request(url):
     :return: beautiful soup object
     """
     try:
-        payload = {
-            'source': 'universal',
-            'url': url
-        }
+        payload = {"source": "universal", "url": url}
 
         response = requests.request(
-            'POST',
-            'https://realtime.oxylabs.io/v1/queries',
-            auth=(username, password),
-            json=payload
+            "POST",
+            "https://realtime.oxylabs.io/v1/queries",
+            auth=("vaibhav_GYO2v", "Deadpool_712"),
+            json=payload,
         )
-        html_response = response.json()['results'][0]['content']
-        return BeautifulSoup(html_response, 'html.parser')
+        html_response = response.json()["results"][0]["content"]
+        return BeautifulSoup(html_response, "html.parser")
     except requests.exceptions.RequestException as e:
-        print('Error:', e)
+        print("Error:", e)
         return None
 
 
@@ -37,9 +34,9 @@ def direct_request(url):
     """
     try:
         html_content = requests.get(url).content
-        return BeautifulSoup(html_content, 'html.parser')
+        return BeautifulSoup(html_content, "html.parser")
     except requests.exceptions.RequestException as e:
-        print('Error:', e)
+        print("Error:", e)
         return None
 
 
@@ -53,14 +50,14 @@ def scrap_blog_content(url):
         soup = proxy_request(url)
         # soup = direct_request(url)
         if soup:
-            title = soup.find(class_='article-title').text
-            text_selection = soup.find(class_='article-text')
-            text = ' '.join([p.text for p in text_selection.find_all('p')])
-            return {'title': title, 'text': text}
+            title = soup.find(class_="article-title").text
+            text_selection = soup.find(class_="article-text")
+            text = " ".join([p.text for p in text_selection.find_all("p")])
+            return {"title": title, "text": text}
         else:
             return None
     except Exception as e:
-        print('Error:', e)
+        print("Error:", e)
         return None
 
 
@@ -74,20 +71,16 @@ def scrap_blog_urls(url, pages):
     blog_urls = []
     try:
         for page in range(1, pages):
-            print('scraping page:', page)
-            page_url = url + f'?debut_rub_lastart={page*10}#pagination_rub_lastart'
+            print("scraping page:", page)
+            page_url = url + f"?debut_rub_lastart={page*10}#pagination_rub_lastart"
             soup = proxy_request(page_url)
             if soup:
-                blog_section = soup.find(id='post-list')
-                selection = blog_section.find_all(class_='post-thumb')
-                urls = [BASE_URL + url.find('a').get('href') for url in selection]
+                blog_section = soup.find(id="post-list")
+                selection = blog_section.find_all(class_="post-thumb")
+                urls = [BASE_URL + url.find("a").get("href") for url in selection]
                 blog_urls.extend(urls)
 
         return blog_urls
     except Exception as e:
-        print('Error:', e)
+        print("Error:", e)
         return blog_urls
-
-
-
-

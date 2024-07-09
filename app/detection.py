@@ -63,12 +63,3 @@ def classify_blog(blog_content):
         return response.split(",")
     except:
         return []
-
-
-# Read blog from text file
-# with open("test.txt", "r", encoding="utf-8") as file:
-#     text = file.read()
-#     org = detect_organization(text)
-#     print(f"\n Organization: {org}\n")
-#     response = classify_blog(text)
-#     print(f"\n Category: {response}\n")

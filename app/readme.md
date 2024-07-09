@@ -1,0 +1,4 @@
+-> This is the main application
+-> It has two files inferencing & detection
+-> Inferencing will call the detectin functions and store the response into database
+-> Note that in inferencing you need to update chunk path manually after one chunk is done upload into database

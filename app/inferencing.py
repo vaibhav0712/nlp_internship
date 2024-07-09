@@ -114,7 +114,7 @@ def process_csv(csv_file: str, db_config: dict):
 
 
 if __name__ == "__main__":
-    csv_file = "../data/_7.csv"
+    csv_file = "../data/data_chunk/_9.csv"  # give chunk to model
     db_config = {
         "host": "localhost",
         "user": "root",
